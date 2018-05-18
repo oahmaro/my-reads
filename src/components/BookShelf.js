@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Book from './Book'
+import PropTypes from 'prop-types';
 
 class BookShelf extends Component {
     render() {
@@ -7,11 +9,21 @@ class BookShelf extends Component {
                 <h2 className="bookshelf-title">{this.props.shelfName}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
+                        {this.props.books.map(book => (
+                            <Book 
+                                key={book.id}
+                                book={book}/>
+                        ))}
                     </ol>
                 </div>
             </div>
         )
     }
 }
+
+BookShelf.propTypes = {
+    books: PropTypes.array.isRequired,
+}
+
 
 export default BookShelf;

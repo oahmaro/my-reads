@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import BookShelf from './BookShelf'
+import BookShelf from './BookShelf';
+import PropTypes from 'prop-types';
 
 class BookList extends Component {
     render() {
+
+        const currentlyReading = this.props.books.filter(book => book.shelf === 'currentlyReading');
+        const wantToRead = this.props.books.filter(book => book.shelf ==='wantToRead');
+        const read = this.props.books.filter(book => book.shelf ==='read');
+
         return(
             <div className="list-books">
                 <div className="list-books-title">
@@ -10,14 +16,26 @@ class BookList extends Component {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <BookShelf shelfName="Currently Reading"/>
-                        <BookShelf shelfName="Want to Read"/>
-                        <BookShelf shelfName="Read"/>
+                        <BookShelf 
+                            shelfName="Currently Reading"
+                            books={currentlyReading}/>
+
+                        <BookShelf 
+                            shelfName="Want to Read"
+                            books={wantToRead}/>
+
+                        <BookShelf 
+                            shelfName="Read"
+                            books={read}/>
                     </div>
                 </div>
             </div>
         )
     }
+}
+
+BookList.propTypes = {
+    books: PropTypes.array.isRequired,
 }
 
 export default BookList;

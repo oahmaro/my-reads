@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 function Book(props) {
     const bookCover = {
         width: 128,
         height: 193,
-        backgroundImage: ``
+        backgroundImage: `url(${props.book.imageLinks.thumbnail})`
     }
-    
     return (
         <li>
             <div className="book">
                 <div className="book-top">
-                <div className="book-cover" style={this.BookCover}></div>
+                <div className="book-cover" style={bookCover}></div>
                 <div className="book-shelf-changer">
                     <select>
                     <option value="none" disabled>Move to...</option>
@@ -22,7 +21,7 @@ function Book(props) {
                     </select>
                 </div>
                 </div>
-                <div className="book-title">To Kill a Mockingbird</div>
+                <div className="book-title">{props.book.title}</div>
                 <div className="book-authors">Harper Lee</div>
             </div>        
         </li>
