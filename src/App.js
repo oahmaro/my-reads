@@ -1,7 +1,7 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import * as BookAPI from './BooksAPI';
+import * as BooksAPI from './BooksAPI';
 import BookList from './components/BookList';
 
 class BooksApp extends React.Component {
@@ -13,22 +13,41 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    
+
   }
 
   componentDidMount() {
-    BookAPI.getAll().then((books) => {
-      console.log(books)
+    this.getBooks()
+  }
+
+  getBooks() {
+    BooksAPI.getAll().then((response) => {
+
+      console.log(response)
+      
       this.setState(() => ({
-        books
+        books: response
       }))
     })
+  }
+
+  moveBook = (book, shelf) => {
+    if(shelf !== book.shelf) {
+      BooksAPI.update(book, shelf).then((response) => {
+        this.getBooks()
+      })
+    }
   }
 
   render() {
     return (
       <div className="app">
-        <BookList books={this.state.books} />
+        <BookList 
+          books={this.state.books} 
+          onBookMove={this.moveBook}
+          />
         <div className="open-search">
               <a onClick={() => console.log('clicked')}>Add a book</a>
         </div>

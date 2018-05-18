@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 class BookList extends Component {
     render() {
-
         const currentlyReading = this.props.books.filter(book => book.shelf === 'currentlyReading');
         const wantToRead = this.props.books.filter(book => book.shelf ==='wantToRead');
         const read = this.props.books.filter(book => book.shelf ==='read');
@@ -17,14 +16,17 @@ class BookList extends Component {
                 <div className="list-books-content">
                     <div>
                         <BookShelf 
+                            onBookMove={this.props.onBookMove}
                             shelfName="Currently Reading"
                             books={currentlyReading}/>
 
                         <BookShelf 
+                            onBookMove={this.props.onBookMove}
                             shelfName="Want to Read"
                             books={wantToRead}/>
 
                         <BookShelf 
+                            onBookMove={this.props.onBookMove}
                             shelfName="Read"
                             books={read}/>
                     </div>
