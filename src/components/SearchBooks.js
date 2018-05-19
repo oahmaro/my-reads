@@ -52,13 +52,13 @@ class SearchBooks extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                {this.state.searchResult && 
-                    this.state.searchResult.map(book => (
-                    <Book 
-                        key={book.id}
-                        onBookMove={this.props.onBookMove}
-                        book={book}/>
-                ))}
+                    {this.state.searchResult && 
+                        this.state.searchResult.map(book => (
+                        <Book 
+                            key={book.id}
+                            onBookMove={this.props.onBookMove}
+                            book={book}/>
+                    ))}
               </ol>
             </div>
             {JSON.stringify(this.state.query)}

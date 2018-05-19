@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Book(props) {
+    const thumbnail = props.book.imageLinks !== undefined ? props.book.imageLinks.thumbnail : ''
     const bookCover = {
         width: 128,
         height: 193,
-        backgroundImage: `url(${props.book.imageLinks.thumbnail})`
+        backgroundImage: `url(${thumbnail})`,
+        backgroundRepeat: 'round'
     }
     return (
         <li>
