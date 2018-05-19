@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Book(props) {
-    const thumbnail = props.book.imageLinks !== undefined ? props.book.imageLinks.thumbnail : ''
+    const thumbnail = props.book.imageLinks !== undefined ? props.book.imageLinks.smallThumbnail : ''
     const bookCover = {
         width: 128,
         height: 193,
@@ -16,7 +16,7 @@ function Book(props) {
                 <div className="book-cover" style={bookCover}></div>
                 <div className="book-shelf-changer">
                     <select 
-                        defaultValue={props.book.shelf}
+                        value={props.book.shelf}
                         onChange={(e) => props.onBookMove(props.book, e.target.value)}>
 
                         <option value="none" disabled>Move to...</option>
