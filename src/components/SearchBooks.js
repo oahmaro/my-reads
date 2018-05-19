@@ -1,7 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import * as BooksAPI from '../BooksAPI';
+import Book from './Book'
 class SearchBooks extends Component {
+    state = {
+        query: '',
+        searchResult: [],
+    }
+
+    updateQuery = (query) => {
+        this.setState(() => ({
+            query
+        }))
+        this.searchBook(query)
+    }
+
+    searchBook(query) {
+        if(query) {
+            BooksAPI.search(query).then((response) => {
+                if(response.error) {
+                    this.setState({searchResult: []})
+                } else {
+                    this.setState(() => ({
+                        searchResult: response
+                    }))
+                }
+            })
+        }
+    }
+
     render() {
         return (
           <div className="search-books">
@@ -16,13 +43,26 @@ class SearchBooks extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
-
+                <input 
+                    type="text" 
+                    placeholder="Search by title or author"
+                    value={this.state.query}
+                    onChange={(e) => this.updateQuery(e.target.value)}/>
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {this.state.searchResult && 
+                    this.state.searchResult.map(book => (
+                    <Book 
+                        key={book.id}
+                        onBookMove={this.props.onBookMove}
+                        book={book}/>
+                ))}
+              </ol>
             </div>
+            {JSON.stringify(this.state.query)}
+            {console.log(this.state.searchResult)}
           </div>
         )
     }
