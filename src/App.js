@@ -23,10 +23,7 @@ class BooksApp extends React.Component {
   }
 
   getBooks() {
-    BooksAPI.getAll().then((response) => {
-
-      console.log(response)
-      
+    BooksAPI.getAll().then((response) => {   
       this.setState(() => ({
         books: response
       }))
