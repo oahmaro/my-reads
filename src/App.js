@@ -19,10 +19,6 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    this.getBooks()
-  }
-
-  getBooks() {
     BooksAPI.getAll().then((response) => {   
       this.setState(() => ({
         books: response
@@ -30,12 +26,15 @@ class BooksApp extends React.Component {
     })
   }
 
-  moveBook = (book, shelf) => {
-    if(shelf !== book.shelf) {
-      BooksAPI.update(book, shelf).then((response) => {
-        this.getBooks()
+  moveBook = (appBook, shelf) => {
+      BooksAPI.update(appBook, shelf).then((response) => {
+        appBook.shelf = shelf
+        const tmpList = this.state.books.filter((book) => book.id != appBook.id )
+        tmpList.push(appBook)
+        this.setState(() =>({
+          books: tmpList
+        }))
       })
-    }
   }
 
   render() {
@@ -56,7 +55,8 @@ class BooksApp extends React.Component {
         <Route
           exact path='/search'
           render={() => (
-            <SearchBooks 
+            <SearchBooks
+              books={this.state.books}
               onBookMove={this.moveBook}/>
           )}
           />
