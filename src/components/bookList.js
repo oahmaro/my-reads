@@ -3,6 +3,11 @@ import BookShelf from './BookShelf';
 import PropTypes from 'prop-types';
 
 class BookList extends Component {
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        onBookMove: PropTypes.func.isRequired,
+    }
+    
     render() {
         const currentlyReading = this.props.books.filter(book => book.shelf === 'currentlyReading');
         const wantToRead = this.props.books.filter(book => book.shelf ==='wantToRead');
@@ -34,10 +39,6 @@ class BookList extends Component {
             </div>
         )
     }
-}
-
-BookList.propTypes = {
-    books: PropTypes.array.isRequired,
 }
 
 export default BookList;

@@ -14,8 +14,6 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
-    
-
   }
 
   componentDidMount() {
