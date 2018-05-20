@@ -9,9 +9,12 @@ class BookList extends Component {
     }
     
     render() {
-        const currentlyReading = this.props.books.filter(book => book.shelf === 'currentlyReading');
-        const wantToRead = this.props.books.filter(book => book.shelf ==='wantToRead');
-        const read = this.props.books.filter(book => book.shelf ==='read');
+        // Destructuring 
+        const { onBookMove, books } = this.props
+
+        const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
+        const wantToRead = books.filter(book => book.shelf ==='wantToRead');
+        const read = books.filter(book => book.shelf ==='read');
 
         return(
             <div className="list-books">
@@ -21,17 +24,17 @@ class BookList extends Component {
                 <div className="list-books-content">
                     <div>
                         <BookShelf 
-                            onBookMove={this.props.onBookMove}
+                            onBookMove={onBookMove}
                             shelfName="Currently Reading"
                             books={currentlyReading}/>
 
                         <BookShelf 
-                            onBookMove={this.props.onBookMove}
+                            onBookMove={onBookMove}
                             shelfName="Want to Read"
                             books={wantToRead}/>
 
                         <BookShelf 
-                            onBookMove={this.props.onBookMove}
+                            onBookMove={onBookMove}
                             shelfName="Read"
                             books={read}/>
                     </div>

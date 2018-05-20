@@ -38,12 +38,15 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    // Destructuring 
+    const { books } = this.state
+
     return (
       <div>
         <Route exact path='/' render={() => (
               <div>
                 <BookList
-                  books={this.state.books}
+                  books={books}
                   onBookMove={this.moveBook}/>
 
                 <div className="open-search">
@@ -56,7 +59,7 @@ class BooksApp extends React.Component {
           exact path='/search'
           render={() => (
             <SearchBooks
-              books={this.state.books}
+              books={books}
               onBookMove={this.moveBook}/>
           )}
           />
