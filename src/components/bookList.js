@@ -12,6 +12,7 @@ class BookList extends Component {
         // Destructuring 
         const { onBookMove, books } = this.props
 
+        // filtter passed book props based on its shelf
         const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
         const wantToRead = books.filter(book => book.shelf ==='wantToRead');
         const read = books.filter(book => book.shelf ==='read');

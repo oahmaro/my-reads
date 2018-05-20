@@ -19,6 +19,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    // grab all books available in app when component mounts
     BooksAPI.getAll().then((response) => {   
       this.setState(() => ({
         books: response
@@ -28,9 +29,17 @@ class BooksApp extends React.Component {
 
   moveBook = (appBook, shelf) => {
       BooksAPI.update(appBook, shelf).then((response) => {
+
+        //set books availble in app to the sepecied shelf
         appBook.shelf = shelf
+
+        // filter the passed book from the application books
         const tmpList = this.state.books.filter((book) => book.id !== appBook.id )
+
+        // add the passed book to the application books
         tmpList.push(appBook)
+
+        // set the state to a new list that contains the moved book
         this.setState(() =>({
           books: tmpList
         }))
@@ -43,6 +52,7 @@ class BooksApp extends React.Component {
 
     return (
       <div>
+        {/* route to main page */}
         <Route exact path='/' render={() => (
               <div>
                 <BookList
@@ -54,7 +64,7 @@ class BooksApp extends React.Component {
                 </div>
               </div>
               )}/>
-
+        {/* route to search page */}
         <Route
           exact path='/search'
           render={() => (

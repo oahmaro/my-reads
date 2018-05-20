@@ -8,9 +8,7 @@ class BookShelf extends Component {
         shelfName: PropTypes.string.isRequired,
         books: PropTypes.array.isRequired,
     }
-    static propTypes = {
-        books: PropTypes.array.isRequired,
-    }
+
     render() {
         // Destructuring 
         const { shelfName, books, onBookMove } = this.props

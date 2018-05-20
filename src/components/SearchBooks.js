@@ -15,16 +15,22 @@ class SearchBooks extends Component {
         searchResult: [],
     }
 
+    // update fetched books based on query
     updateQuery = (query) => {
         this.setState(() => ({
             query
         }))
+
+        // call method that fetch the books passing it the query
         this.searchBook(query)
     }
 
     searchBook(query) {
+        // check if query isn't empty
         if(query) {
             BooksAPI.search(query).then((response) => {
+
+                // fixed a problem that happens when query doesn't match the predefined search terms
                 if(response.error) {
                     this.setState({searchResult: []})
                 } else {
@@ -38,8 +44,10 @@ class SearchBooks extends Component {
 
     setBookShelf(books) {
         const appBooks = this.props.books;
+        // books is the passed book array passed from the search query
         const searchedBooks = books;
          
+        // this will hold the new book lists returned from the map after setting the shelf on it
         const newBooks = searchedBooks.map(searchedBook => {
             const match = appBooks.find(appBook => appBook.id === searchedBook.id)
             if (match) {
@@ -72,16 +80,18 @@ class SearchBooks extends Component {
                     type="text" 
                     placeholder="Search by title or author"
                     value={this.state.query}
+                    // update the updateQuery method based on the query entered in search input field
                     onChange={(e) => this.updateQuery(e.target.value)}/>
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                    {this.state.searchResult && this.state.searchResult.map(book => (
-                        <Book 
-                            key={book.id}
-                            onBookMove={this.props.onBookMove}
-                            book={book}/>
+                    {   // check if Search Result has books in it
+                        this.state.searchResult && this.state.searchResult.map(book => (
+                            <Book 
+                                key={book.id}
+                                onBookMove={this.props.onBookMove}
+                                book={book}/>
                     ))}
               </ol>
             </div>

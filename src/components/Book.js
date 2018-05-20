@@ -7,6 +7,7 @@ function Book(props) {
         width: 128,
         height: 193,
         backgroundImage: `url(${thumbnail})`,
+        // fixed a repeat problem happening on thumbnail
         backgroundRepeat: 'round'
     }
     return (
@@ -16,10 +17,13 @@ function Book(props) {
                 <div className="book-cover" style={bookCover}></div>
                 <div className="book-shelf-changer">
                     <select 
+                        // sets the default value for book control
                         value={props.book.shelf}
+
+                        // calls on moveBookMove method to move books to diffrent shelves
                         onChange={(e) => props.onBookMove(props.book, e.target.value)}>
 
-                        <option  disabled>Move to...</option>
+                        <option disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
