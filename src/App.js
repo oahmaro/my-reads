@@ -29,7 +29,7 @@ class BooksApp extends React.Component {
   moveBook = (appBook, shelf) => {
       BooksAPI.update(appBook, shelf).then((response) => {
         appBook.shelf = shelf
-        const tmpList = this.state.books.filter((book) => book.id != appBook.id )
+        const tmpList = this.state.books.filter((book) => book.id !== appBook.id )
         tmpList.push(appBook)
         this.setState(() =>({
           books: tmpList

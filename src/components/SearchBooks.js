@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI';
-import Book from './Book'
+import Book from './Book';
 class SearchBooks extends Component {
     state = {
         query: '',
@@ -21,13 +21,31 @@ class SearchBooks extends Component {
                 if(response.error) {
                     this.setState({searchResult: []})
                 } else {
-                    this.setState(() => ({
-                        searchResult: response
-                    }))
+                    this.setState(() => (
+                         this.setBookShelf(response)
+                    ))
                 }
             })
         }
     }
+
+    setBookShelf(books) {
+        const appBooks = this.props.books;
+        const searchedBooks = books;
+         
+        const newBooks = searchedBooks.map(searchedBook => {
+            const match = appBooks.find(appBook => appBook.id === searchedBook.id)
+            if (match) {
+                searchedBook.shelf = match.shelf
+            } else {
+                searchedBook.shelf = 'none';
+            }
+
+            return searchedBook
+        })
+        return {searchResult: newBooks}
+    }
+
 
     render() {
         return (
