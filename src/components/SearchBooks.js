@@ -39,6 +39,8 @@ class SearchBooks extends Component {
                     ))
                 }
             })
+        } else {
+            this.setState(() => ({searchResult: []}))
         }
     }
 
