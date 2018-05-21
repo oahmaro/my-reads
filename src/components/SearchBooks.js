@@ -13,6 +13,7 @@ class SearchBooks extends Component {
     state = {
         query: '',
         searchResult: [],
+        error: false,
     }
 
     // update fetched books based on query
@@ -32,15 +33,22 @@ class SearchBooks extends Component {
 
                 // fixed a problem that happens when query doesn't match the predefined search terms
                 if(response.error) {
-                    this.setState({searchResult: []})
+                    this.setState({
+                        searchResult: [],
+                        error: true,
+                    });
+
                 } else {
                     this.setState(() => (
                          this.setBookShelf(response)
-                    ))
+                    ));
                 }
             })
         } else {
-            this.setState(() => ({searchResult: []}))
+            this.setState(() => ({
+                searchResult: [],
+                error: false,
+            }))
         }
     }
 
@@ -60,7 +68,10 @@ class SearchBooks extends Component {
 
             return searchedBook
         })
-        return {searchResult: newBooks}
+        return {
+            searchResult: newBooks,
+            error: false,
+        }
     }
 
 
@@ -89,16 +100,15 @@ class SearchBooks extends Component {
             <div className="search-books-results">
               <ol className="books-grid">
                     {   // check if Search Result has books in it
-                        this.state.searchResult && this.state.searchResult.map(book => (
+                        this.state.searchResult && !(this.state.error) ?
+                         this.state.searchResult.map(book => (
                             <Book 
                                 key={book.id}
                                 onBookMove={this.props.onBookMove}
-                                book={book}/>
-                    ))}
+                                book={book}/>))
+                        : <li>Books not found</li>}
               </ol>
             </div>
-            {JSON.stringify(this.state.query)}
-            {console.log(this.state.searchResult)}
           </div>
         )
     }
