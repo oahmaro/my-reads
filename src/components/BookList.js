@@ -11,11 +11,12 @@ class BookList extends Component {
     render() {
         // Destructuring 
         const { onBookMove, books } = this.props
-
-        // filtter passed book props based on its shelf
-        const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
-        const wantToRead = books.filter(book => book.shelf ==='wantToRead');
-        const read = books.filter(book => book.shelf ==='read');
+        // 
+        const shelves = {
+            currentlyReading: ['Currently Reading', 'currentlyReading'],
+            wantToRead: ['Want to Read', 'wantToRead'],
+            read: ['Read', 'read'],
+        }
 
         return(
             <div className="list-books">
@@ -23,22 +24,14 @@ class BookList extends Component {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    <div>
-                        <BookShelf 
-                            onBookMove={onBookMove}
-                            shelfName="Currently Reading"
-                            books={currentlyReading}/>
-
-                        <BookShelf 
-                            onBookMove={onBookMove}
-                            shelfName="Want to Read"
-                            books={wantToRead}/>
-
-                        <BookShelf 
-                            onBookMove={onBookMove}
-                            shelfName="Read"
-                            books={read}/>
-                    </div>
+                    {Object.keys(shelves).map((shelf) => 
+                        <BookShelf
+                            key={shelf}
+                            shelfName={shelves[shelf][0]}
+                            books={ books.filter(book => book.shelf === shelves[shelf][1]) }
+                            onBookMove={ onBookMove }
+                        />
+                    )}
                 </div>
             </div>
         )
